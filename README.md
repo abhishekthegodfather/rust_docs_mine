@@ -169,6 +169,70 @@ trim() -> for removing white spaces.
 
 
 
+### Enum in Rust
+Rust's enums are similar to algebraic data types in Haskell. They are special types that have a finite set of values, known as variants. The syntax for defining an enum in Rust is as follows:
+
+```
+enum Method {
+    GET,
+    POST,
+    HEAD,
+    PUT,
+    DELETE,
+    CONNECT,
+    OPTIONS,
+    TRACE,
+    PATCH
+}
+```
+
+### Memory Representation of Enums
+- In memory, the variants of an enum are represented as simple numbers.
+- The enumeration starts from zero, and each subsequent variant is incremented by one.
+- For instance, creating a new enum instance:
+  ```
+  let get = Method::GET;
+  ```
+### Assigning Values to Enums
+While Rust doesn't natively support directly assigning integer values to enum variants like in C, you can mimic this behavior using enum with repr attribute:
+```
+#[repr(i32)]
+enum Method {
+    GET = 1,
+    POST = 2,
+    HEAD = 5,
+    PUT,    // This will be 6
+    DELETE, // This will be 7, and so on
+    CONNECT,
+    OPTIONS,
+    TRACE,
+    PATCH
+}
+```
+### Enums with Data
+Rust enums can also carry data. Each variant can have different types and amounts of associated data:
+```
+enum Method {
+    GET(String),
+    POST(u64),
+    HEAD, // HEAD = 5 syntax is not valid when data is associated
+    PUT,
+    DELETE,
+    CONNECT,
+    OPTIONS,
+    TRACE,
+    PATCH
+}
+let get = Method::GET("this".to_string());
+```
+- In this case, `GET` variant holds a String, and POST holds a `u64` integer.
+- The enum will take enough space to store the largest variant, which is determined by the Rust compiler.
+
+### Enums in Rust: Powerful and Flexible
+Rust enums are powerful and flexible, similar to a union in C, but with more capabilities like storing different data types in each variant.
+
+
+
 
 
 
