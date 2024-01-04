@@ -232,8 +232,40 @@ let get = Method::GET("this".to_string());
 Rust enums are powerful and flexible, similar to a union in C, but with more capabilities like storing different data types in each variant.
 
 
+### Handling Null in Rust
+Most programming languages have the concept of null, which indicates the absence of a value. Variables in these languages can exist in two states: either having a value or being null. However, using a null value where a non-null value is expected can lead to errors. In C++, for example, this can cause a "Null Pointer Exception."
+
+### Rust's Approach: The `Option` Type
+Rust chooses not to support `null` values directly, due to the potential for errors. Instead, it expresses the absence of a value using a special enum variant from the standard library (`stdlib`), called `Option`. This approach is type-safe and avoids many common errors associated with `null`.
+
+Definition of `Option` in Rust's Standard Library
+Rust's standard library defines Option as follows:
+```
+pub enum Option<T> {
+    None,
+    Some(T),
+}
+```
+- `Some(T)`: Indicates the presence of a value of type `T`.
+- `None`: Indicates the absence of a value.
 
 
+Using `Option` in Rust
+Here's an example of defining a struct in Rust that uses `Option`:
+```
+struct Request {
+    path: String,
+    query_string: Option<String>
+}
+```
+In this example, `query_string` is an optional field that might or might not have a `String` value.
+
+Importing `Option` from Rust's Standard Library
+While `Option` is part of Rust's prelude and is automatically imported, you can also explicitly import it like this:
+```
+use std::option::Option;
+```
+Rust's `Option` type is a powerful tool that provides a safe way to handle the potential absence of values. By replacing the concept of `null` with `Option`, Rust helps avoid a whole class of runtime errors related to null values.
 
 
 
